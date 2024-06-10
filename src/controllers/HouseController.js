@@ -62,6 +62,17 @@ class HouseController {
         })
         return res.send()
     }
-}
 
+    async destroy(req, res) {
+        const { house_id } = req.body
+        const { user_id } = req.headers
+        const user = await User.findById(user_id)
+        const houses = await House.findById(house_id)
+        if (String(user._id) !== String(houses.user)){
+        return res.status(401).json({ error: 'Não autorizado'})
+        }
+        await House.findByIdAndDelete({ _id: house_id })
+        return res.json({ menssage: 'Excluido com sucesso'})
+        }
+}
 export default new HouseController()
