@@ -10,3 +10,5 @@ class DashboardController{
         return res.json(houses);
     }
 }
+
+export default new DashboardController();
